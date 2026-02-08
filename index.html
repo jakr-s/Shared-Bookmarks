@@ -4,9 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shared-Bookmarks-Homepage</title>
-    <meta
-    <script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
+
   </head>
   <body>
+    <h1>Shared Bookmark</h1>
+
+    <section aria-labelledby="user-select-label">
+      <h2 id="user-select-label">Select a user to view their bookmarks</h2>
+      <select id="user-select" name="user-select"><option value="" disabled selected>-- Choose a user --</option></select>
+    </section>
+
+    <section id="bookmarks-section" aria-labelledby="bookmarks-section-label">
+      <h2 id="bookmarks-section-label">Stored bookmarks</h2>
+      <p id="validation-message"></p>
+      <ul id="bookmarks-list">
+      </ul>
+    </section>
+
   </body>
-</html>
+</html>  
