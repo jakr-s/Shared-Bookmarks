@@ -48,9 +48,7 @@ function saveUserBookmarks(userId, bookmarks) {
 }
 
 function formatDate(createdAt) {
-  const date = new Date(createdAt).toLocaleString();
-  console.log(date);
-  return date;
+  return new Date(createdAt).toLocaleString();
 }
 
 function createBookmarkListItem(bookmark, userId) {
@@ -68,9 +66,30 @@ function createBookmarkListItem(bookmark, userId) {
   const createdAt = document.createElement("p");
   createdAt.textContent = `Created: ${formatDate(bookmark.createdAt)}`;
 
+  const likeButton = document.createElement("button");
+  likeButton.type = "button";
+  likeButton.textContent = `Like (${bookmark.likes})`;
+  likeButton.addEventListener("click", () => {
+    const currentBookmarks = readUserBookmarks(userId);
+    const updatedBookmarks = currentBookmarks.map((currentBookmark) => {
+      if (currentBookmark.id !== bookmark.id) {
+        return currentBookmark;
+      }
+
+      return {
+        ...currentBookmark,
+        likes: currentBookmark.likes + 1,
+      };
+    });
+
+    saveUserBookmarks(userId, updatedBookmarks);
+    renderBookmarks(userId);
+  });
+
   li.appendChild(title);
   li.appendChild(description);
   li.appendChild(createdAt);
+  li.appendChild(likeButton);
 
   return li;
 }
