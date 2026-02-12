@@ -66,6 +66,18 @@ function createBookmarkListItem(bookmark, userId) {
   const createdAt = document.createElement("p");
   createdAt.textContent = `Created: ${formatDate(bookmark.createdAt)}`;
 
+  const copyButton = document.createElement("button");
+  copyButton.type = "button";
+  copyButton.textContent = "Copy URL";
+  copyButton.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(bookmark.url);
+      setStatus("Copied URL to clipboard.");
+    } catch {
+      setStatus("Clipboard copy failed.");
+    }
+  });
+
   const likeButton = document.createElement("button");
   likeButton.type = "button";
   likeButton.textContent = `Like (${bookmark.likes})`;
@@ -89,6 +101,7 @@ function createBookmarkListItem(bookmark, userId) {
   li.appendChild(title);
   li.appendChild(description);
   li.appendChild(createdAt);
+  li.appendChild(copyButton);
   li.appendChild(likeButton);
 
   return li;
