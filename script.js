@@ -7,6 +7,20 @@ const bookmarkForm = document.querySelector("#bookmark-form");
 const bookmarkUrl = document.querySelector("#bookmark-url");
 const bookmarkTitle = document.querySelector("#bookmark-title");
 const bookmarkDescription = document.querySelector("#bookmark-description");
+const bookmarkSubmit = document.querySelector("#bookmark-submit");
+
+let selectedUserId = "";
+
+function setStatus(message) {
+  validationMessage.textContent = message;
+}
+
+function setFormEnabled(isEnabled) {
+  bookmarkUrl.disabled = !isEnabled;
+  bookmarkTitle.disabled = !isEnabled;
+  bookmarkDescription.disabled = !isEnabled;
+  bookmarkSubmit.disabled = !isEnabled;
+}
 
 function addUserDropdown() {
   const ids = getUserIds();
