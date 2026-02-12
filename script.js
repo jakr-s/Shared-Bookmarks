@@ -1,7 +1,11 @@
-import { getUserIds, getData, setData } from "./storage.js";
+import { getUserIds } from "./storage.js";
 import {
-  sanitizeStoredBookmarks,
+  createBookmark,
+  formatDate,
+  readUserBookmarks,
+  saveUserBookmarks,
   sortBookmarksByCreatedAtDesc,
+  validateFormValues,
 } from "./utils.js";
 
 const userSelect = document.querySelector("#user-select");
@@ -37,18 +41,6 @@ function addUserDropdown() {
 
     userSelect.appendChild(option);
   });
-}
-
-function readUserBookmarks(userId) {
-  return sanitizeStoredBookmarks(getData(userId));
-}
-
-function saveUserBookmarks(userId, bookmarks) {
-  setData(userId, bookmarks);
-}
-
-function formatDate(createdAt) {
-  return new Date(createdAt).toLocaleString();
 }
 
 function createBookmarkListItem(bookmark, userId) {
@@ -127,35 +119,6 @@ function renderBookmarks(userId) {
   bookmarks.forEach((bookmark) => {
     bookmarksList.appendChild(createBookmarkListItem(bookmark, userId));
   });
-}
-
-function validateFormValues(url, title, description) {
-  if (!selectedUserId) {
-    return "Please choose a user first.";
-  }
-
-  if (!url || !title || !description) {
-    return "URL, title, and description are required.";
-  }
-
-  try {
-    new URL(url);
-  } catch {
-    return "Please enter a valid URL.";
-  }
-
-  return "";
-}
-
-function createBookmark(url, title, description) {
-  return {
-    id: crypto.randomUUID(),
-    url,
-    title,
-    description,
-    createdAt: Date.now(),
-    likes: 0,
-  };
 }
 
 addUserDropdown();
