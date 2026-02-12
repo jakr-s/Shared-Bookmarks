@@ -9,13 +9,13 @@ const bookmarkTitle = document.querySelector("#bookmark-title");
 const bookmarkDescription = document.querySelector("#bookmark-description");
 
 function addUserDropdown() {
-  const ids = getUserIds(); //fetching data
+  const ids = getUserIds();
 
   ids.forEach((id) => {
-    const option = document.createElement("option"); //creating shelf for the data
+    const option = document.createElement("option");
 
     option.value = id;
-    option.textContent = `user ${id}`; //putting data on the shelf
+    option.textContent = `User ${id}`;
 
     userSelect.appendChild(option);
   });
